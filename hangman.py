@@ -8,8 +8,9 @@ from random import choice, random, randint
 
 dictionary_file = "dictionary_short.txt"
 
+
 def import_dictionary(filename):
-    dictionary = {Lenlist: [] for Lenlist in range(1, 13)}
+    dictionaries = {Lenlist: [] for Lenlist in range(1, 13)}
     try:
         f = open(filename, "r")
         max_size = 12
@@ -18,18 +19,17 @@ def import_dictionary(filename):
             word_length = len(word)
             if word_length > 0:
                 if word_length < max_size:
-                    dictionary[word_length].append(word)
+                    dictionaries[word_length].append(word)
                 else:
-                    dictionary[max_size].append(word)
+                    dictionaries[max_size].append(word)
 
-        return dictionary
+        return dictionaries
     except Exception as e:
         print(e)
 
 
 def print_dictionary(dictionary):
     pass
-
 
 
 def get_game_options():
@@ -83,12 +83,9 @@ def print_status(lives_remaining, letters_used, word, num_lives):
     print('{} lives: {} {}'.format(letters_status, lives_remaining, lives_status))
 
 
-
-
 if __name__ == '__main__':
 
     dictionary = import_dictionary(dictionary_file)
-
 
     print('Welcome to the Hangman Game!')
 
@@ -96,7 +93,6 @@ if __name__ == '__main__':
     while play:
 
         word_size, num_lives = get_game_options()
-
 
         possible_words = dictionary[word_size]
         word = choice(possible_words)
@@ -114,7 +110,6 @@ if __name__ == '__main__':
             while len(guess) != 1 or not guess.isalpha() or guess in letters_chosen:
                 print('Please choose a new letter >')
                 guess = input()
-
 
                 if guess is not None:
                     if guess in letters_chosen:
@@ -137,10 +132,8 @@ if __name__ == '__main__':
             print('You lost! The word is {}!'.format(word.upper()))
             print('Would you like to play again [Y/N]?')
 
-
         play_input = input()
 
         play = play_input == 'Y' or play_input == 'y'
-
 
     print('Goodbye!')
